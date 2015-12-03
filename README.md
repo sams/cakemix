@@ -14,10 +14,12 @@ Normally, to make a new CakePHP project, you enter:
 
 ## Install and Configure
 
-1. Download cakeme.
-2. Change the permissions to allow executing as a script:
+Download cakeme.
+
+Change the permissions to allow executing as a script:
 > sudo chmod a+x cakeme
-3. Move file with:
+
+Move file with:
 > sudo mv cakeme /usr/local/bin/cakeme
 
 And you're done.
