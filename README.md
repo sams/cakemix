@@ -1,6 +1,6 @@
-# cakeme
+# cakemix
 
-"cakeme" is a really simple Linux shell script to shorten the command for creating a new CakePHP project.
+"cakemix" is a really simple Linux shell script to shorten the command for creating a new CakePHP project.
 
 Normally, to make a new CakePHP project, you enter:
 
@@ -8,19 +8,21 @@ Normally, to make a new CakePHP project, you enter:
 
 (where "myproject" is the name of your new CakePHP app.)
 
-"cakeme" turns the process into:
+"cakemix" turns the process into:
 
-> cakeme myproject
+> cakemix myproject
 
 ## Install and Configure
 
-Download cakeme.
+Download cakemix.
 
 Change the permissions to allow executing as a script:
-> sudo chmod a+x cakeme
+> sudo chmod a+x cakemix
 
 Move file with:
-> sudo mv cakeme /usr/local/bin/cakeme
+> sudo mv cakemix /usr/local/bin/cakemix
 
 And you're done.
+
+(P.S. This only works on Linux.)
 
