@@ -1,7 +1,33 @@
-#!/bin/bash          
-if [[ -n "$1" ]]; then
-    yes Y | composer create-project --prefer-dist cakephp/app $1
+#!/bin/bash
+if [[ -n "$2" ]]; then
+    if [[ "-s" == "$1" ]]; then
+        # bin/cake server
+        bin/cake server -p $2
+        exit 0
+    elif [[ "-p" == "$1" ]]; then
+        yes Y | composer create-project --prefer-dist cakephp/app $2
+        exit 0
+    else
+        echo 'Command format:\n'
+        echo 'cakemix -s nnnn (start server on port nnnn)\n'
+        echo 'cakemix -p xxxx (create project named xxxx)\n'
+        exit 1
+    fi
+elif [[ -n "$1" ]]; then
+    if [[ "-x" == $1 ]]; then
+        HTTPDUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
+        setfacl -R -m u:${HTTPDUSER}:rwx tmp
+        setfacl -R -d -m u:${HTTPDUSER}:rwx tmp
+        setfacl -R -m u:${HTTPDUSER}:rwx logs
+        setfacl -R -d -m u:${HTTPDUSER}:rwx logs
+        exit 0
+    elif [[ "-s" == "$1" ]]; then
+        bin/cake server
+        exit 0
+    fi
 else
-    echo "Please provide a name for your project"
+    echo 'Command format:\n'
+    echo 'cakemix -s nnnn (start server on port nnnn)\n'
+    echo 'cakemix -p xxxx (create project named xxxx)\n'
+    exit 1
 fi
-

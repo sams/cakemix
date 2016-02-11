@@ -1,16 +1,23 @@
 # cakemix
 
-"cakemix" is a really simple Linux shell script to shorten the command for creating a new CakePHP project.
+"cakemix" is a really simple Linux shell script to run CakePHP commands.
 
-Normally, to make a new CakePHP project, you enter:
+Usage:
 
-> composer create-project --prefer-dist cakephp/app myproject
+> cakemix -p [project-name]
 
-(where "myproject" is the name of your new CakePHP app.)
+Creates a new project.
 
-"cakemix" turns the process into:
 
-> cakemix myproject
+> cakemix -s [port]
+
+Starts the CakePHP development server (on "port" if specified).
+
+
+> cakemix -x
+
+Sets default permissions on /tmp and /logs folders.
+
 
 ## Install and Configure
 
