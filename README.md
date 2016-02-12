@@ -2,21 +2,33 @@
 
 "cakemix" is a really simple Linux shell script to run CakePHP commands.
 
+
 Usage:
 
-> cakemix -p [project-name]
+> cakemix
 
-Creates a new project.
-
-
-> cakemix -s [port]
-
-Starts the CakePHP development server (on "port" if specified).
+Issuing the "CakeMix" command with no parameters will attempt to start the
+CakePHP development server on the default port (9876).
 
 
-> cakemix -x
+> cakemix nnnn
 
-Sets default permissions on /tmp and /logs folders.
+Starts the CakePHP development server on port 'nnnn'.
+
+
+> cakemix xxxx
+
+Create a new Cake project skeleton named 'xxxx'.
+
+
+> cakemix -p
+
+Sets the default permissions on the '/tmp' and '/logs' directories.
+
+
+> cakemix -h
+
+Diplays the help text.
 
 
 ## Install and Configure
@@ -32,4 +44,3 @@ Move file with:
 And you're done.
 
 (P.S. This only works on Linux.)
-

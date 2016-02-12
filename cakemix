@@ -1,33 +1,35 @@
 #!/bin/bash
-if [[ -n "$2" ]]; then
-    if [[ "-s" == "$1" ]]; then
-        # bin/cake server
-        bin/cake server -p $2
-        exit 0
-    elif [[ "-p" == "$1" ]]; then
-        yes Y | composer create-project --prefer-dist cakephp/app $2
-        exit 0
-    else
-        echo 'Command format:\n'
-        echo 'cakemix -s nnnn (start server on port nnnn)\n'
-        echo 'cakemix -p xxxx (create project named xxxx)\n'
-        exit 1
-    fi
-elif [[ -n "$1" ]]; then
-    if [[ "-x" == $1 ]]; then
+if [[ -n "$1" ]]; then
+    # a parameter was provided
+    if [[ "$1" =~ ^-?[0-9]+$ ]]; then
+        # an integer was provided so try to start server
+        # on port $1
+        bin/cake server -p $1
+    elif [[ "$1" == "-p" ]]; then
+        # a non-integer parameter was provided so if it was -p
+        # then try to set default permissions
         HTTPDUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
         setfacl -R -m u:${HTTPDUSER}:rwx tmp
         setfacl -R -d -m u:${HTTPDUSER}:rwx tmp
         setfacl -R -m u:${HTTPDUSER}:rwx logs
         setfacl -R -d -m u:${HTTPDUSER}:rwx logs
-        exit 0
-    elif [[ "-s" == "$1" ]]; then
-        bin/cake server
-        exit 0
+        echo 'Default CakePHP permissions for /tmp and /logs have been set.'
+    elif [[ "$1" == "-h" ]]; then
+        # if the non-integer parameter was -h then show help text
+        echo 'Command format:'
+        echo ' '
+        echo 'cakemix - starts server on default port'
+        echo 'cakemix nnnn - start server on specified port'
+        echo 'cakemix xxxx - create project named xxxx'
+        echo 'cakemix -p - sets default permissions'
+        echo 'cakemix -h - displays this help text'
+    else
+        # assume that by giving us a non-integer parameter that wasn't in
+        # the command list, they want to create a new project named $1
+        yes Y | composer create-project --prefer-dist cakephp/app $1
     fi
 else
-    echo 'Command format:\n'
-    echo 'cakemix -s nnnn (start server on port nnnn)\n'
-    echo 'cakemix -p xxxx (create project named xxxx)\n'
-    exit 1
+    # no parameter was provided so try to start server
+    # on the default port
+    bin/cake server
 fi
