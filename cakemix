@@ -14,6 +14,11 @@ if [[ -n "$1" ]]; then
         setfacl -R -m u:${HTTPDUSER}:rwx logs
         setfacl -R -d -m u:${HTTPDUSER}:rwx logs
         echo 'Default CakePHP permissions for /tmp and /logs have been set.'
+    elif [[ "$1" == "-z" ]]; then
+        # a non-integer parameter was provided so if it was -z
+        # then zip up the folder for deployment
+        zip ../cake-app.zip -r * .[^.]*
+        echo 'The folder you are in (and its subfolders and files) have been zipped.'
     elif [[ "$1" == "-h" ]]; then
         # if the non-integer parameter was -h then show help text
         echo 'Command format:'
